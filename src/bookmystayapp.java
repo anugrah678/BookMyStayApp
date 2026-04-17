@@ -1,104 +1,53 @@
-import java.io.*;
-import java.util.*;
-
 /**
  * ================================================================
- * CLASS - RoomInventory
+ * MAIN CLASS - UseCase1HotelBookingApp
  * ================================================================
+ *
+ * Use Case 1: Application Entry & Welcome Message
+ *
+ * Description:
+ * This class represents the entry point of the
+ * Hotel Booking Management System.
+ *
+ * At this stage, the application:
+ * - Starts execution from the main() method
+ * - Displays a welcome message
+ * - Shows application name
+ * - Shows application version
+ *
+ * No business logic or data structures are implemented yet.
+ *
+ * The goal is to establish a clear startup flow.
+ *
+ * @author Sankalp Kumar
+ * @version 1.0
  */
-class RoomInventory {
 
-    Map<String, Integer> rooms;
-
-    public RoomInventory() {
-        rooms = new HashMap<>();
-        rooms.put("Single", 5);
-        rooms.put("Double", 3);
-        rooms.put("Suite", 2);
-    }
-
-    public void display() {
-        System.out.println("\nCurrent Inventory:");
-        for (String key : rooms.keySet()) {
-            System.out.println(key + ": " + rooms.get(key));
-        }
-    }
-}
-
-/**
- * ================================================================
- * CLASS - FilePersistenceService
- * ================================================================
- */
-class FilePersistenceService {
-
-    // Save inventory to file
-    public void save(RoomInventory inventory, String fileName) {
-
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
-
-            for (Map.Entry<String, Integer> entry : inventory.rooms.entrySet()) {
-                writer.write(entry.getKey() + "," + entry.getValue());
-                writer.newLine();
-            }
-
-            System.out.println("Inventory saved successfully.");
-
-        } catch (IOException e) {
-            System.out.println("Error saving data.");
-        }
-    }
-
-    // Load inventory from file
-    public void load(RoomInventory inventory, String fileName) {
-
-        File file = new File(fileName);
-
-        if (!file.exists()) {
-            System.out.println("No existing data found. Starting fresh.");
-            return;
-        }
-
-        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
-
-            inventory.rooms.clear();
-
-            String line;
-            while ((line = reader.readLine()) != null) {
-
-                String[] parts = line.split(",");
-                inventory.rooms.put(parts[0], Integer.parseInt(parts[1]));
-            }
-
-            System.out.println("Inventory loaded successfully.");
-
-        } catch (IOException e) {
-            System.out.println("Error loading data.");
-        }
-    }
-}
-
-/**
- * ================================================================
- * MAIN CLASS
- * ================================================================
- */
 public class bookmystayapp {
 
+    /**
+     * Application entry point.
+     *
+     * @param args Command-line arguments
+     */
     public static void main(String[] args) {
 
-        String fileName = "inventory.txt";
+        // Application name
+        String appName = "Book My Stay App";
 
-        RoomInventory inventory = new RoomInventory();
-        FilePersistenceService service = new FilePersistenceService();
+        // Application version
+        String version = "Version 1.0";
 
-        // Load previous state
-        service.load(inventory, fileName);
+        // Welcome message
+        System.out.println("==========================================");
+        System.out.println(" Welcome to " + appName);
+        System.out.println("==========================================");
 
-        // Show inventory
-        inventory.display();
+        // Application details
+        System.out.println("Application Name : " + appName);
+        System.out.println("Version : " + version);
 
-        // Save current state
-        service.save(inventory, fileName);
+        System.out.println("System initialized successfully.");
+        System.out.println("Ready to accept booking operations.");
     }
 }
